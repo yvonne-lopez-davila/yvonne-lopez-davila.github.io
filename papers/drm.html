@@ -1,0 +1,506 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+<meta charset="utf-8"> 
+<title>DRM & EME Analysis</title>
+
+<style>
+  body {
+    font-size: 1.1em;
+    line-height: 1.6em;
+  }
+
+  h1, h2, h3 {
+      color: #0c5389 !important;
+  }
+
+  h4 {
+    margin-bottom: 0em;
+  }
+
+  p {
+    margin-bottom: 1em;
+  }
+</style>
+
+<link rel="stylesheet" type="text/css" href="https://www.cs.tufts.edu/comp/117/style/homework.css">
+<meta name="robots" content="noindex, nofollow">
+</head>
+
+<body class="homework">
+
+<div class="student">
+<p>
+
+<br>
+</p>
+</div>
+
+<div class="UpperLeftHeader">
+<p>
+  Yvonne Lopez Davila
+  <br>
+  Systems Analysis&mdash; Dec 2025
+</p>
+</div>
+
+<div class="headerdiv">
+<h2>
+Analyzing the Implications of Standardizing Digital Rights Management on the Web through Encrypted Media Extensions<br>
+</h2> 
+</div>
+
+<div class="main">
+
+<!-- Overview -->
+<h3 id="overview">I. Overview</h3>
+<p>
+
+    The emergence of the web has brought about a powerful means of easily and openly sharing diverse content. The extent to which this has been possible may be largely attributed to early design choices that focused on ensuring a decentralized and accessible system to which all users could equally refer and contribute. 
+    While the web has remained technically compatible with diverse content types that have emerged over time,  
+    proprietary concerns &mdash; often informed by legal, financial, and security considerations &mdash; have brought forth challenges to many of the web's central tenets. 
+    These concerns have led to the World Wide Web Consortium's decision to  standardize certain specifications and restrictions surrounding digital rights management (DRM), namely Encrypted Media Extensions (EME). 
+
+    Nevertheless, these developments have stirred  controversy as many argue that such restrictions undermine the inherent interpretability and openness of the web space. 
+
+    This controversy has resulted in diverse social movements, petitions, and legal efforts against various aspects of DRM on the web, raising both practical and philosophical criticisms. 
+
+
+    Thus, a central question remains: 
+    <i>How does content that inherently depends on legal and 
+      technical obscurity    
+       exist within
+       a universal system designed around principles of decentralization, openness, and explorability? </i>
+</p>
+<p>
+    This report seeks to evaluate various tradeoffs and impacts of standardizing DRM on the web. 
+    The following sections 
+    examine how associated design decisions 
+    challenge or support fundamental principles of
+    web architecture and usage, as well as 
+    possible implications for various stakeholders and communities. 
+    
+    In particular, this analysis examines the role of abstraction in EME
+
+    and the ways in which opaque processes on the web 
+    
+    may create tensions with principles
+     of universality, interoperability, security, correctness, and openness.
+
+</p>
+
+
+<!-- Background / History -->
+<h3 id="background">II. Evolution of DRM and EME</h3>
+<h4>Digital Rights Management & Video Standardization on the Web</h4>
+<p>
+  In 2008, the &lt;video&gt; tag was introduced to early drafts of HTML5. This addition extended the standardization of media content, as it allowed users to embed video content into a web page in the same way they did images and other HTML content. While video playback previously required the use of desktop players or third-party plug-in installations, which often came with security risks and extra steps for both users and developers, the new tag offered the possibility of full in-browser playback control. 
+  Extending tags to include an increasingly popular content form was in many ways a very natural extension of the web, extending principles of universality and scalability by standardizing the representation  
+  of yet another information object.
+</p>
+<p>
+  Of course, the standardization of video content on the web came intertwined with the laws and expectations surrounding the ability to copy, use, and redistribute video content. 
+  The scale, scope, and speed at which video content could be shared&mdash;both legally and illegally&mdash; became part of a global and decentralized space. 
+  Thus, while the need for digital rights management (DRM)&mdash;that is, systems through which media access and usage could be controlled&mdash;existed long before web technologies, the scope of control now far surpassed the inherent limitations and traceability in copying and selling <i>physical</i> media. Popular plug-ins like <i>Flash</i> implemented independent versions of DRM through encrypted streams, secure key storage, and license exchange.
+  Despite its advantages for users, developers, and the web ecosystem as a whole, enabling widespread accessibility to unencrypted video content on the web complicated subsequent content-regulation enforceability. 
+ For many, 
+  written laws were not a sufficient means of digital content control; unauthorized use had to be virtually impossible for DRM .
+</p>
+
+<h4>Media Source Extensions (MSE)</h4>
+<p>
+  The official release of HTML5 in 2013 came with Media Source Extensions (MSE), an open specification allowing media streaming to be integrated into JavaScript. 
+  Using the new video tag, non-premium streaming platforms like YouTube switched from plug-ins to transparent, purely HTML-embedded video playback and controls under MSE. 
+  For others, particularly movie companies like Netflix that offered "premium content," MSE was not sufficient, and they continued to require additional plug-ins to enforce DRM encryption. 
+</p>
+<h4>Encrypted Media Extensions (EME)</h4>
+  <p>
+    As streaming gained popularity, pressure to fully integrate encrypted video content grew. Major corporations including Google, Microsoft, Apple, and BBC pushed for the inclusion of EME in the HTML5.    
+
+    In 2017, W3C published a standardized form of DRM for video content known as Encrypted Media Extensions, or EME, as part of the HTML5 standard. 
+    EME provided a common JavaScript API that enabled in-browser interaction with media content.
+
+    This essentially created a layer of (leaky) abstraction between the front-facing, openly accessible web content and the encryption/processing logic that large companies had previously outsourced through plug-in extensions.
+    
+    While the common EME API carried the web's universal standardization, the code behind the abstraction was necessarily obscured, effectively barring interpretability, research, and security audits outside of the protecting authority.
+
+    Thus, although this hidden programming layer had existed on the web through third-party services and plug-ins long before EME, this standardization marked a philosophical compromise that stirred controversy across diverse groups and interests.
+    
+    Large movie companies and streaming services effectively abandoned plug-ins in favor of adopting the new EME standard. Yet, many felt that this introduction of EME standardized a degree of secrecy and centralized authority on the web that disempowered users and detracted from many of the web's core principles. 
+
+</p>
+
+
+<!-- Technical Overview -->
+<h3 id="technical-details">III. Accessing EME Content: Technical Details</h3>
+<p>
+  Before further exploring the benefits, limitations, and tensions associated with the widespread adoption of EME for streaming protected content, we  first examine the technical workflow associated with EME. 
+</p>
+  
+<p>
+Consider a user who wants to stream DRM video content. 
+  As the user navigates to the streaming site URL, the page's embedded JavaScript immediately extracts references to encrypted media. These references are often embedded within metadata headers. 
+  
+  In order to initialize playback for encrypted media, the page must go through an authentication process and effectively outsource encryption to a third-party service. However, as mentioned, this outsourcing is handled within the browser via Encrypted Management Extensions through the following communication pattern.   
+</p>
+  
+<p>
+
+  To begin the decryption process, the page must send an EME API call to determine whether the browser supports a compatible Content Decryption Module, commonly referred to as a CDM. 
+  A CDM is essentially an implementation of a recognized DRM key system. Recognized key systems often span those attributed to large, reputable corporations, namely, Google Widevine, Apple FairPlay, and Microsoft PlayReady.
+</p>
+  
+<p>
+  If a compatible CDM is available, it is then initialized by the browser. Once initialized, the CDM generates a license request, which the browser can then use to request an encrypted license from the associated remote key server.
+  If the received request complies with the key server's compatibility and security expectations, the server then responds with an encrypted license containing the cryptographic keys for the secure video content decryption.   
+</p>
+<p>
+  Once obtained, the browser passes the license to the CDM and deploys an isolated, "sandboxed" environment in which the CDM decryption process may run.
+  While the <i>browser</i> defines the constraints of the sandbox, permissions granted within that sandboxed environment are dictated by the CDM. 
+  The CDM then decrypts media segments as they are streamed to the user's screen according to the user's playback control.
+  Notably, the front-facing user's role exists almost exclusively at the ends of the internal transactions. 
+</p>
+<p>
+  Moreover, the bounds of the sandbox are bidirectional. While the sandbox aims to provide a degree of protection to the user's private data and operating system (as determined by the browser), the sandbox also obscures internal processes from both the browser and the user. That is, the logic executed within the CDM is neither visible nor interpretable to any player external to the isolated environment.
+
+  <p>
+    Thus, the flow of EME decryption necessitates a certain trust hierarchy as the user relies on the browser to enforce privacy restrictions on the trusted sandbox environment. While browser vendors often disclose some degree high-level details, low-level details are typically obscured for safe and legal protection of internal CDM decryption content. Thus, browsers then rely on a degree of trust with the key servers and the execution of opaque processes within a CDM. 
+  </p>
+
+</p>
+
+
+<!-- Controversies & Trade-offs -->
+<h3 id="controversies">IV. Evaluating Controversies, Trade-offs, and Tensions</h3>
+
+<!-- UNIVERSALITY VS SECRECY -->
+<h4>Universality vs Secrecy</h4>
+
+<!-- 01 Universality is essential to the web --> 
+ <p>
+   <i>"The web has to be universal, to function to all[...] It must be able to include information of all types, and media of many genres[, ...] free stuff and for-pay stuff, as they are all part of this world"</i> (<a href="https://www.w3.org/blog/2017/on-eme-in-html5/">Berners-Lee 2017, On EME in HTML5</a>).
+  </p>
+<p>
+Since its inception, the web has encompassed the idea of a single information space where diverse content can coexist and be linked in ways that may not be inherently apparent. 
+  The idea of universality has guided &mdash;and continues to guide&mdash; various design choices across the web. 
+  In particular, the ability to equally identify, refer to, and access an unbounded set of resources across a global space has often been made possible  through standardized abstractions: from universal identifiers and HTML tags to hardware compatibility.
+  Although seemingly antithetical to some extent, Tim's words echo the sentiment that true universality&mdash;perhaps by definition&mdash;extends to resources that demand access limitations. 
+  That is, the infinite space of resources includes resources whose inherently restrictive nature prevents them from being universally accessible.   
+  Thus, the extension of HTML to abstract such resources to be equally referenceable and used on the web (even if just superficially), enables the continuation of the web's principal universality.
+  Despite the hidden processes that occur beyond the EME, at a high level, the encrypted content is still integrated and interpreted into the document in virtually the same way as unencrypted media content. 
+  Thus, the standardized API surface allows in-browser security models that offer a greater degree of protection compared to prior use of plug-ins and uncontrolled extensions. 
+</p>
+    
+    <!-- 10 But secrecy and centralization contradict web ideals--> 
+<p>
+  Nevertheless, it is important to consider the holes in such an abstraction. 
+  
+  The introduction of EME eliminates or lessens many of disadvantages that came with alternative DRM plug-ins. At a minimum, the user-experience and accessibility of DRM becomes far less cumbersome with in-browser communication and playback. 
+  
+  Furthermore, EME eliminates the need for uninterpretable installations, which evidently allows at least some degree of control over the subsequent executions (later sections will explore security implications in more depth).  
+  Nevertheless, while these burdens may be lessened or mitigated by EME standardization, this does not resolve the fundamental secrecy required by obscured CDM execution. 
+  For the user, the access permissions, license exchanges, and execution logic that occur on the browser level and within the CDM are completely obscured, and transitively, the potential implications for the user's data are similarly obscured.
+  
+  Thus, the power shifts from being entirely in control of a third-party plug-in to being largely controlled by browser vendors and key servers. 
+  
+  The client shifts his trust (perhaps to a more reliable entity), but remains largely in the dark about what goes on beyond the JavaScript abstraction.
+  Thus, while EME may redistribute the hierarchy of authority, it does not prevent the subsequent centralization of authority, which can have broader, system-wide consequences.   
+</p>
+<p>
+  
+  Thus, while preserving universality, the introduction of abstractions like EME necessitates secrecy on the web that may isolate user control and centralize power on the web.
+
+</p>
+
+
+<!-- INTEROPERABILITY VS LIMITED COMPATIBILITY-->
+<h4>Interoperability vs Restricted Compatibility</h4>
+<p>
+  The argument for increased interoperability stems naturally from the idea of having a standardized, in-browser extension that allows encrypted media content to be accessed across the web space. 
+  As a user, the experience of playing encrypted content become virtually the same as playing encrypted content. The user has full, in-browser playback control, and is practically unaffected by processes beyond the superficial EME layer. 
+  Moreover, the practical support for EME across most, if not all, large and frequently used browsers abstracts possible incompatibilities almost entirely for the user. 
+</p>
+
+<p>
+  Aside from universality, decentralization is another core component of the web's design. In particular, maintaining decentralization in internal design decisions often promotes the web's system-wide scalability.  
+  Accordingly, we see the use of EME impose certain limitations on potential growth. 
+
+  For example, the protocol imposes a small set of compatible key systems and CDMs, 
+  concentrating regulation entities to already dominant industry players like Google, Apple, and Microsoft. 
+
+  Even within this set usable of content and browser-compatible CDMs, it is important to note that EME standardization does not extend beyond the API communication layer.
+  The actual Content Decryption Modules behavior and licensing protocols are free from any standardization beyond the sandboxing environment, resulting to cross-CDM incompatibilities that weaken the true degree of interoperability.  
+
+  Even the sandboxed environment itself varies across browsers, as the sandbox limitations are left largely to the browser-vendor's discretion. 
+
+  While failures within these blackboxed systems will likely have little effect on the web system beyond an unsuccessful playback on the corresponding page, this restriction could limit growth with respect to this particular media handling.
+</p>
+<p>
+  Moreover, this concentrated authority creates entry barriers for new or smaller browsers that may be abandoned or regarded as incomplete due to incompatibility with these standardized key systems (licensing barriers, etc).
+
+  EME is technically optional, and browsers can still exist without supporting EME content. However, per Metcalfe's Law, the number of connections and users that a browser can support is a large determinant of value on the web.  
+  
+  Thus, support for EME becomes mandatory <i>de facto</i> as a browser that lacks universal compatibility is hardly more appealing than an outdated version. 
+
+</p>
+<p>
+  Thus, while the inclusion of EME in HTML5 introduces a practical interoperability compared to earlier iterations, 
+  potential fractures beneath the surface interoperability within the web space may remain. 
+
+</p>
+
+
+<h4>Opacity and System Correctness</h4>
+<p>
+  The standardization of DRM has interesting implications for system correctness. 
+  The <i>End-to-End</i> principle states that the ability to ensure overall success in a system that does work in multiple steps requires end-to-end failure and recovery checks. 
+  However, the EME abstraction conceals an encapsulated process that cannot be assessed or inspected by the browser or the system at large. 
+  Thus, the correctness relies on internal checks within the isolated environment.
+
+  This not only exposes possible security flaws, which will be further discussed in the following section, but also fundamentally prevents a complete End-to-End check beyond the internal CDM system.   
+
+</p>
+
+
+<h4>Security through Opacity vs Exposed Blind-Spots</h4>
+
+<!-- SECURITY THROUGH STANDARDIZATION VS RISKS OF OPAQUE PROPRIETARY CONTROL -->
+<p>
+  To some extent, EME standardization in HTML extends a standard of security 
+  across encrypted video streaming as DRM code is necessarily restricted to a sandbox environment. 
+  
+  The aforementioned centralization of authority with respect to regulations and protocols for DRM execution  
+  allows a degree of assurance for users, who can depend on the reputability of verified and relatively trusted entities. 
+  
+  While such means of enforcing a degree of security across the web space may
+  impose certain obscurities with respect to data privacy, 
+  a certain degree of opaqueness is often necessary to protect encrypted content and prevent vulnerability exploitations.
+
+  In practice, this DRM blackbox may effectively promote user interests in addition to movie companies and corporations seeking to enforce DRM.
+
+
+  For example, exposing specific conditions of a sandbox environment 
+  could weaken the isolation bounds of the DRM execution.  
+  
+  Weakened isolation bounds could then welcome targeted attacks that not only compromise content protection,  
+  but also threaten the content consumer's data isolation.
+  
+
+  Therefore, to effectively support premium content&mdash;which exists one way or another&mdash; while providing user's a certain assurance of digital safety,   
+  a level of opaqueness with the user may be necessary.   
+</p>
+<p>
+  Nevertheless, the web standardization of DRM obscurities and the effects of associated anti-circumvention laws have raised a great deal of security concerns across various communities. 
+
+  One area of concern is the lack of specifications surrounding the extent to which sandboxing must protect a user, which leaves implementation to the browser's discretion. 
+
+  Perhaps the largest area of DRM critique, however, concerns laws like the Digital Millennium Copyright Act (DMCA) enforced in the World Intellectual Property Organization (WIPO) Copyright Treaty in 1996.
+  The law essentially criminalizes all activity that may interfere with DRM, barring any attempts at DRM access control circumvention.
+
+  In practice, this law bars security research efforts surrounding DRM and exacerbates risks of publishing security vulnerabilities, which result in unintended legal consequences.
+  These risks similarly extend to accessibility researchers and accessibility controls&mdash;such as captioning and audio descriptions&mdash; for encrypted content. 
+
+  Such barriers to audit and analysis may not only undermine the web's principles of open architecture, but also lead to potential dangers.
+
+  Groups like the Electronic Frontiers Foundation called for protection of researchers who investigate browsers through organized action and petitions supported by many reputable security researchers 
+  (<a href="https://www.eff.org/deeplinks/2017/07/security-researchers-tell-w3c-protect-researchers-who-investigate-browsers">EFF 2016, Security Researchers: Tell the W3C To Protect Researchers Who Investigate Browsers</a>).
+
+  Formal efforts to approve legitimate DMCA exemptions and pass legal compromises were supported by UNESCO and various human rights organizations, security experts, The Open Source Initiative, and even some W3C entities. Nevertheless, these proposals were ultimately unsuccessful, receiving rejections from large movie and streaming companies like Netflix and W3C DRM advocates 
+  (<a href="https://www.eff.org/deeplinks/2017/07/amid-unprecedented-controversy-w3c-greenlights-drm-web">EFF 2017, Amid Unprecedented Controversy, W3C Greenlights DRM for the Web</a>). 
+
+
+  The effects of legally protecting DRM opaqueness may extend across the web as lack of openness in audits and research efforts may have cascading effects  on user security and accessibility.   
+
+</p>
+
+<p>
+  While EME may issue a degree of standardization with respect to secure access of encrypted video content, the current DRM implementation seems to necessitate action that defies the fundamental, open architecture of the web. 
+  This rigidity represents a security tradeoff between preserving stronger isolation and allowing open research aimed at detecting and improving potential vulnerabilities. 
+</p>
+
+
+<!-- COMMERCIAL INTEREST VS USER FREEDOM -->
+<h4>Commercial Interests vs User Freedom</h4>
+<p>
+  While this report focuses primarily on technical and architectural components of DME, it is important to note the economic pressures that may influence decisions and inform authoritative interests within a technical system.
+
+  In practice, the continued success of the web may require a degree of architectural compromise and flexibility to external pressures and interests.
+
+  In disclosing his decision to ultimately recommend EME with HTML5, Tim Berners-Lee discusses limitations to the World Wide Web Consortium's (W3C) 
+  somewhat limited influence on practical outcomes with respect to DRM  
+  (<a href="https://www.w3.org/blog/2017/on-eme-in-html5/">Berners-Lee 2017</a>).
+
+</p>
+<p>
+  Irrespective of ideals for user privacy and freedom, demand for streaming premium content remains relatively inelastic, whether or not that content is made easily accessible through web integration.
+  Thus, large movie companies and corporations that benefit from DRM have inherent power in dictating conditions that users must accept to access such content. 
+  For instance, Berners-Lee mentions contained applications as a likely alternative to the rejection of standardized DRM within the web ecosystem 
+  (<a href="https://www.w3.org/blog/2017/on-eme-in-html5/">Berners-Lee 2017</a>).
+  In such a case, the limitations and concerns with DRM will evidently remain, they will simply be relocated.  
+  
+  Some argue that the choice not to accept external influences that compromise fundamental system ideals has value in principle nevertheless. 
+  
+  However, this philosophical stance can come with tangible system tradeoffs as the extent of the web's network space may be weakened, devaluing the system's power to universally contain information.
+
+  This once again echoes the principles of Metcalfe's Law. The system's ability to support user demand may extend beyond ambitions of notoriety or legacy; rather, limitations in this respect may ultimately weaken the system's principal functionality and purpose.
+</p>
+
+<h3 id="outro">V. Closing Remarks and Considerations</h3>
+
+<h4>Heterogenous Resource Handling vs System-wide Expectations  </h4>
+<p>
+  The discussion of tradeoffs and tensions thus far largely focuses on effects of DRM with respect to video content. 
+  However, the compromises made in standardizing encrypted video content raise questions for potential effects on system-wide expectations and acceptable obscurity in resource handling.
+  <i>
+    Does the standardization of EME mark a beginning of 
+    DRM encrypted content handling across books, music, and other forms of media? 
+  </i>
+</p>
+
+<h4>Takeaways and Ongoing Relevance</h4>
+
+<p>
+  While it is hard to certainly predict the future of the web, it is important to continue critically evaluating the ways in which system-wide compromises may result in present and future tradeoffs.
+  
+  The goal of such analysis is not to prove that a compromise is statically beneficial or statically harmful, nor is it to stir division and distrust in existing systems. 
+  Rather, careful analysis offers users, developers, and corporations alike a tool to better understand big-picture effects in a way that proactively considers cascading effects of large design decisions. 
+</p>
+  <p>
+
+    The extent to which various communities and groups of people have come together to protest and express concern over a decision that is, at its technical core, the inclusion of an API abstraction layer on the web demonstrates various ways in which a seemingly simple system design decision may have effects that extend far beyond technological and performance tradeoffs.
+    
+    The ability to holistically understand and consider such tradeoffs may thus inform continued developments that mitigate potential downstream consequences.
+  
+    Notably, many of these considerations may be applicable beyond the context of the web specifically, offering relevant consideration in the development of various large technological systems.      
+  </p>
+
+
+
+<!-- Bibliography -->
+<h3 id="bibliography">Bibliography</h3>
+
+<ul>
+  <li>
+    World Wide Web Consortium (W3C).
+    <i>Encrypted Media Extensions.</i>
+    W3C Recommendation, 2017.
+    <a href="https://www.w3.org/TR/encrypted-media-2/">https://www.w3.org/TR/encrypted-media-2/</a>
+  </li>
+
+  <li>
+    World Wide Web Consortium (W3C).
+    <i>EME Recommendation Backgrounder.</i>
+    W3C Press Release, 2017.
+    <a href="https://www.w3.org/press-releases/2017/eme-backgrounder/">https://www.w3.org/press-releases/2017/eme-backgrounder/</a>
+  </li>
+
+  <li>
+    World Wide Web Consortium (W3C).
+    <i>W3C Recommendation: Encrypted Media Extensions.</i>
+    Press Release, 2017.
+    <a href="https://www.w3.org/press-releases/2017/eme-recommendation/">https://www.w3.org/press-releases/2017/eme-recommendation/</a>
+  </li>
+
+  <li>
+    Berners-Lee, Tim.
+    <i>On EME in HTML5.</i>
+    W3C Blog, 2017.
+    <a href="https://www.w3.org/blog/2017/on-eme-in-html5/">https://www.w3.org/blog/2017/on-eme-in-html5/</a>
+  </li>
+
+  <li>
+    World Wide Web Consortium (W3C).
+    <i>Hearing the Concerns the EME Recommendation Raises.</i>
+    W3C Blog, 2017.
+    <a href="https://www.w3.org/blog/2017/w3c-hearing-the-concerns-the-eme-recommendation-raises/">https://www.w3.org/blog/2017/w3c-hearing-the-concerns-the-eme-recommendation-raises/</a>
+  </li>
+
+  <li>
+    World Wide Web Consortium (W3C).
+    <i>Reflections on the EME Debate.</i>
+    W3C Blog, 2017.
+    <a href="https://www.w3.org/blog/2017/reflections-on-the-eme-debate/">https://www.w3.org/blog/2017/reflections-on-the-eme-debate/</a>
+  </li>
+
+  <li>
+    World Wide Web Consortium (W3C).
+    <i>EME and Accessibility.</i>
+    W3C Accessibility Statement, 2017.
+    <a href="https://www.w3.org/2017/03/eme-accessibility.html">https://www.w3.org/2017/03/eme-accessibility.html</a>
+  </li>
+
+  <li>
+    World Wide Web Consortium (W3C).
+    <i>Public HTML Media Working Group Mailing List Archives.</i>
+    2017.
+    <a href="https://lists.w3.org/Archives/Public/public-html-media/2017Jul/0000.html">
+      https://lists.w3.org/Archives/Public/public-html-media/2017Jul/0000.html
+    </a>
+  </li>
+
+  <li>
+    World Wide Web Consortium (W3C).
+    <i>Public HTML Administration Mailing List Archives.</i>
+    2013.
+    <a href="https://lists.w3.org/Archives/Public/public-html-admin/2013Sep/0129.html">
+      https://lists.w3.org/Archives/Public/public-html-admin/2013Sep/0129.html
+    </a>
+  </li>
+
+  <li>
+    Electronic Frontier Foundation (EFF).
+    <i>Amid Unprecedented Controversy, W3C Greenlights DRM for the Web.</i>
+    Deeplinks Blog, 2017.
+    <a href="https://www.eff.org/deeplinks/2017/07/amid-unprecedented-controversy-w3c-greenlights-drm-web">
+      https://www.eff.org/deeplinks/2017/07/amid-unprecedented-controversy-w3c-greenlights-drm-web
+    </a>
+  </li>
+
+  <li>
+    Berners-Lee, Tim.
+    <i>DRM Concerns Arise as W3C Approves EME Specification.</i>
+    SOS-VO News, 2017.
+    <a href="https://sos-vo.org/news/drm-concerns-arise-w3cs-tim-berners-lee-approves-eme-specification">
+      https://sos-vo.org/news/drm-concerns-arise-w3cs-tim-berners-lee-approves-eme-specification
+    </a>
+  </li>
+
+  <li>
+    Mullin, Joe.
+    <i>The Future of the WWW: Tim Berners-Lee and DRM.</i>
+    Ars Technica, 2017.
+    <a href="https://arstechnica.com/information-technology/2017/02/future-of-the-www-timbl-drm/">
+      https://arstechnica.com/information-technology/2017/02/future-of-the-www-timbl-drm/
+    </a>
+  </li>
+
+  <li>
+    Masnick, Mike.
+    <i>Tim Berners-Lee Officially Supports DRM in HTML.</i>
+    Techdirt, 2017.
+    <a href="https://www.techdirt.com/2017/07/07/tim-berners-lee-sells-out-his-creation-officially-supports-drm-html/">
+      https://www.techdirt.com/2017/07/07/tim-berners-lee-sells-out-his-creation-officially-supports-drm-html/
+    </a>
+  </li>
+
+  <li>
+    Wikipedia contributors.
+    <i>Encrypted Media Extensions.</i>
+    Wikipedia.
+    <a href="https://en.wikipedia.org/wiki/Encrypted_Media_Extensions">
+      https://en.wikipedia.org/wiki/Encrypted_Media_Extensions
+    </a>
+  </li>
+
+  <li>
+    Wikipedia contributors.
+    <i>Digital Millennium Copyright Act.</i>
+    Wikipedia.
+    <a href="https://en.wikipedia.org/wiki/Digital_Millennium_Copyright_Act">
+      https://en.wikipedia.org/wiki/Digital_Millennium_Copyright_Act
+    </a>
+  </li>
+</ul>
+</div>
+</body>
+</html>
