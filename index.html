@@ -71,115 +71,6 @@
 <section class="projects" id="projects-section">
   <h2>Technical Project Highlights</h2>
 
-  <!-- Wildfire Project Card -->
-  <div class="project-card">
-    <h3>Wildfire Risk Assessment & Recommendation System</h3>
-    <p>
-      Full-stack LLM-powered platform generating tailored wildfire risk reports for LA homeowners and buyers, grounded in geospatial, insurance, structural, and market data.
-      <span class="read-more" data-modal="modal-wildfire">More Info →</span>
-      &nbsp;|&nbsp;
-      <a href="https://www.youtube.com/watch?v=Svn_dh9UHlg" target="_blank" class="read-more">Demo Video →</a>
-    </p>
-    <div class="skills">
-      <span class="skill">Python</span>
-      <span class="skill">FastAPI</span>
-      <span class="skill">LLM / RAG</span>
-      <span class="skill">Geospatial Data</span>
-      <span class="skill">Full-Stack</span>
-      <span class="skill">Tufts × Microsoft AI for Good</span>
-    </div>
-  </div>
-
-  <!-- Wildfire Modal -->
-  <div id="modal-wildfire" class="modal">
-    <div class="modal-content">
-      <span class="close">&times;</span>
-      <h3>Wildfire Risk Assessment & Recommendation System</h3>
-
-      <div class="modal-stats">
-        <span class="modal-stat">Full-Stack · LLM/RAG</span>
-        <span class="modal-stat">RCT Evaluated</span>
-        <span class="modal-stat">Tufts × Microsoft AI for Good</span>
-      </div>
-
-      <div class="modal-video">
-        <iframe
-          src="https://www.youtube.com/embed/Svn_dh9UHlg"
-          title="Wildfire Risk Assessment Demo"
-          frameborder="0"
-          allowfullscreen>
-        </iframe>
-      </div>
-
-      <h4>What it does</h4>
-      <p>Generates tailored wildfire risk reports for LA properties by aggregating five data sources — fire hazard zones, historical fire perimeters, structural damage records, Zillow market indices, and insurance data — through an LLM-powered RAG pipeline.</p>
-
-      <h4>Key Features</h4>
-      <ul>
-        <li>Two role-specific paths: homeowners get ranked mitigation steps grounded in nearby structural damage data; buyers get financial and insurance risk trends over time</li>
-        <li>Conversational report assistant with strict guardrails against speculation or off-topic responses</li>
-        <li>Exportable PDF reports for side-by-side property comparison</li>
-        <li>Deployed on Render; FastAPI backend with /analyzeFireRisk and /chat endpoints</li>
-      </ul>
-
-      <h4>Evaluation</h4>
-      <ul>
-        <li>Data grounding scored 4.9/5 via LLM-as-judge rubric across role fit, specificity, and hallucination avoidance</li>
-        <li>RCT (n=6) vs. ChatGPT/Gemini/web search: tool users scored 58–70% vs. control group's 27–95% range — suggesting the system reduces dependence on individual LLM experience</li>
-        <li>Average system trust rating: 4.67/5 among tool users vs. 3.67/5 for control</li>
-      </ul>
-    </div>
-  </div>
-
-  <!-- Skin Lesion Card -->
-  <div class="project-card">
-    <h3>Cancerous Skin Lesion Image Classifier</h3>
-    <p>
-      Ensemble ML pipeline combining medical image features and clinical metadata to classify lesions requiring treatment, with a custom fairness metric targeting age-based bias.
-      <span class="read-more" data-modal="modal-lesion">More Info →</span>
-    </p>
-    <div class="skills">
-      <span class="skill">Python</span>
-      <span class="skill">Machine Learning</span>
-      <span class="skill">Computer Vision</span>
-      <span class="skill">Transfer Learning</span>
-      <span class="skill">CatBoost</span>
-      <span class="skill">Pair Programming</span>
-    </div>
-  </div>
-
-  <!-- Skin Lesion Modal -->
-  <div id="modal-lesion" class="modal">
-    <div class="modal-content">
-      <span class="close">&times;</span>
-      <h3>Cancerous Skin Lesion Image Classifier</h3>
-
-      <div class="modal-stats">
-        <span class="modal-stat">0.946 AUROC</span>
-        <span class="modal-stat">Transfer Learning + CatBoost</span>
-        <span class="modal-stat">Custom Fairness Metric</span>
-      </div>
-
-      <h4>What it does</h4>
-      <p>Ensemble ML pipeline classifying skin lesions as requiring or not requiring treatment, combining clinical metadata with image features extracted via a pretrained Vision Transformer.</p>
-
-      <h4>Pipeline</h4>
-      <ul>
-        <li>MIAFEx (pretrained ViT backbone) extracts 192-dimensional image features per lesion; passed to a CatBoost image classifier</li>
-        <li>Separate CatBoost classifier on clinical metadata (demographics, lesion location, patient history)</li>
-        <li>Final prediction: 40% image / 60% metadata weighted average, selected via Bayesian hyperparameter search (Optuna, 80 trials)</li>
-        <li>5-fold StratifiedGroupKFold cross-validation grouped by patient ID to prevent data leakage</li>
-      </ul>
-
-      <h4>Fairness</h4>
-      <ul>
-        <li>Senior patients (60+) consistently underperformed — addressed via custom scoring objective: 60% overall AUROC + 35% senior AUROC + 5% minimum subgroup AUROC</li>
-        <li>Senior loss weight hyperparameter tuned to penalize misclassifications of older patients during training</li>
-        <li>Outperformed both pure overall and pure senior AUROC optimization</li>
-      </ul>
-    </div>
-  </div>
-
   <!-- Project Card 3 -->
   <div class="project-card">
     <h3>Scaling AI Chatbot for Multi-Platform Use</h3>
@@ -338,35 +229,27 @@
 
 
 <section class="academic-work" id="academic-section">
-  <div class="academic-work-inner">
-    <h2>Academic Papers</h2>
-    
-    <div class="paper-grid">
-      <a href="papers/Wildfire_Risk_Assessment_&_Recommendation_System_Final_Report_2.pdf" target="_blank" class="paper-card">
-        <div class="paper-icon">🔥</div>
-        <h3>LA Wildfire Risk Assessment: An LLM-Powered Approach</h3>
-        <span>RAG · Full-Stack · Randomized Controlled Experiment</span>
-      </a>
+  <h2>Academic Papers</h2>
 
-      <a href="papers/drm.html" target="_blank" class="paper-card">
-        <div class="paper-icon">🔒</div>
-        <h3>Analysis of Digital Rights Management on the Web</h3>
-        <span>Systems Architecture Analysis</span>
-      </a>
+  <div class="paper-grid">
+    <a href="papers/drm.html" target="_blank" class="paper-card">
+      <div class="paper-icon">🔒</div>
+      <h3>Analysis of Digital Rights Management on the Web</h3>
+      <span>Systems Architecture Analysis</span>
+    </a>
 
-      <a href="papers/circular-waste.pdf" target="_blank" class="paper-card">
-        <div class="paper-icon">♻️</div>
-        <h3>Scaling Circularity in Disposal Systems</h3>
-        <span>Big Data · Systems Modeling</span>
-      </a>
-      
-      <a href="papers/metrics-incomeVax.pdf" target="_blank" class="paper-card">
-        <div class="paper-icon">📈</div>
-        <h3>Analyzing the Effect of Income on Vaccination</h3>
-        <span>Empirical Analysis  · Regression  · Stata </span>
-      </a>
-    </div>
-  </div>  
+    <a href="papers/circular-waste.pdf" target="_blank" class="paper-card">
+      <div class="paper-icon">♻️</div>
+      <h3>Scaling Circularity in Disposal Systems</h3>
+      <span>Big Data · Systems Modeling</span>
+    </a>
+
+    <a href="papers/metrics-incomeVax.pdf" target="_blank" class="paper-card">
+      <div class="paper-icon">📈</div>
+      <h3>Analyzing the Effect of Income on Vaccination</h3>
+      <span>Empirical Analysis  · Regression  · Stata </span>
+    </a>
+  </div>
 </section>
 
 

@@ -125,7 +125,7 @@ body {
 /* Quick links */
 .quick-links {
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: wrap;       /* allows links to wrap to next line if needed */
   gap: 1rem;
   margin-top: 1rem;
   justify-content: flex-start;
@@ -155,7 +155,7 @@ body {
     60% { transform: translateY(5px); }
 }
 
-/* Responsive adjustments */
+/* ===== Responsive adjustments ===== */
 @media (max-width: 1024px) {
   .hero-image {
     display: none; /* hide big circle on medium screens */
@@ -168,15 +168,15 @@ body {
   }
 
   .hero-text {
-    right: 50%; 
-    top: 40%;
+    right: 50%;               /* move text toward center */
+    top: 40%;                 /* adjust vertical position */
     transform: translate(50%, -50%);
     max-width: 80%;
     text-align: center;
   }
 
   .quick-links {
-    justify-content: center;  
+    justify-content: center;  /* center links under text */
     gap: 1rem;
   }
 }
@@ -184,9 +184,9 @@ body {
 
 .about-me {
     position: relative;
-    padding: 2rem 10%;  
-    z-index: 1;         
-    margin-top: -5vh;   
+    padding: 2rem 10%;  /* plenty of space for content */
+    z-index: 1;          /* above background */
+    margin-top: -5vh;    /* lets hero circle seep in */
 }
 
 .about-content {
@@ -195,7 +195,7 @@ body {
     gap: 3rem;
     max-width: 1100px;
     margin: 0 auto;
-    flex-wrap: wrap; /* stack if smaller screen */
+    flex-wrap: wrap; /* stacks on small screens */
 }
 
 .about-img img {
@@ -214,10 +214,10 @@ body {
 }
 
 .about-text h2 {
-    margin-top: 0; 
+    margin-top: 0;   /* removes default spacing */
 }
 .about-text p {
-    margin-top: 0.25rem;
+    margin-top: 0.25rem; /* optional small gap below heading */
 }
 
 .about-me h2 {
@@ -258,7 +258,7 @@ body {
 
 .project-card {
   position: relative;
-  background-color: rgba(255,255,255,0.05); 
+  background-color: rgba(255,255,255,0.05); /* subtle contrast */
   padding: 2rem;
   margin-bottom: 2rem;
   border-radius: 12px;
@@ -294,9 +294,9 @@ body {
 
 /* Modal background */
 .modal {
-  display: none; /* Hide initially */
+  display: none; /* Hidden by default */
   position: fixed;
-  z-index: 2000; 
+  z-index: 2000; /* above everything else */
   left: 0;
   top: 0;
   width: 100%;
@@ -408,7 +408,7 @@ body {
 }
 
 
-/* .academic-work {
+.academic-work {
   padding-top:    0.25rem;
   padding-bottom: 4rem;
   padding-left:   10%;
@@ -416,20 +416,6 @@ body {
   max-width: 1100px;
   margin: 0 auto;
   background-color: #414537;
-} */
-
-.academic-work {
-  background-color: #414537;
-  width: 100%;
-}
-
-.academic-work-inner {
-  max-width: 1100px;
-  margin: 0 auto;
-  padding-top: 0.25rem;
-  padding-bottom: 4rem;
-  padding-left: 10%;
-  padding-right: 10%;
 }
 
 .academic-work h2 {
@@ -467,7 +453,8 @@ body {
   box-shadow: 0 8px 18px rgba(0,0,0,0.25);
 }
 
-/* Academic papers icons css */
+/* Academic papers */
+
 /* Icons */
 .paper-icon {
   font-size: 2.5rem;
@@ -554,6 +541,7 @@ body {
   color: #e5caac;
 }
 
+/* Subtle underline on hover */
 .contact-item a::after {
   content: "";
   position: absolute;
@@ -569,39 +557,4 @@ body {
 
 .contact-item a:hover::after {
   transform: scaleX(1);
-}
-
-
-.modal-stats {
-  display: flex;
-  gap: 1.5rem;
-  flex-wrap: wrap;
-  margin-bottom: 1.25rem;
-  padding-bottom: 1rem;
-  border-bottom: 1px solid rgba(178, 152, 131, 0.3);
-}
-
-.modal-stat {
-  color: #b29883;
-  font-weight: 600;
-  font-size: 0.9rem;
-  letter-spacing: 0.03em;
-}
-
-.modal-video {
-  position: relative;
-  width: 100%;
-  padding-bottom: 56.25%; /* 16:9 ratio */
-  height: 0;
-  margin-bottom: 1.5rem;
-  border-radius: 8px;
-  overflow: hidden;
-}
-
-.modal-video iframe {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
 }
