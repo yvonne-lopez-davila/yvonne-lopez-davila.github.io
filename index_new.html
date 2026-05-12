@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Yvonne Lopez Davila Portfolio</title>
+        <link rel="stylesheet" href="style2.css">
+    </head>
+    <body>
+        <!--nav bar-->
+        <nav class="navbar">
+            <ul class="nav-links">
+                <li><a href="#home-section">Home</a></li>
+                <li><a href="#about-section">About</a></li>
+                <li><a href="#projects-section">Projects</a></li>
+                <li><a href="#academic-section">Papers</a></li>
+                <li><a href="#contact-section">Contact</a></li>
+            </ul>
+        </nav>
+
+        <!--intro-->
+        <section class="hero-plus" id="home-section">
+        <!-- Left: oversized circular image -->
+        <div class="hero-image"></div>
+        <section class="hero">
+            <!-- Secondary smaller circle -->
+            <div class="hero-image-secondary"></div>
+
+            <!-- Right: text -->
+            <div class="hero-text">
+                <div class="intro">
+                Welcome, I'm
+                </div>
+                <div class="name">
+                Yvonne<br>
+                Lopez Davila
+                </div>
+                
+                <div class="quick-links">
+                    <a href="mailto:ymld2021@gmail.com">Email</a> |
+                    <a href="https://linkedin.com/in/ymld975" target="_blank">LinkedIn</a> |
+                    <a href="papers/resume.pdf" target="_blank">Resume</a>
+                </div>
+            </div>
+            <a href="#about-section" class="scroll-cue">&#x25BC;</a>
+        </section>
+    </section>
+
+<!-- About Me Section -->
+<section class="about-me" id="about-section">
+    <div class="about-content">
+        <!-- Headshot -->
+        <div class="about-img">
+            <img src="image/face1.JPG" alt="Yvonne Headshot">
+        </div>
+
+        <!-- About text -->
+        <div class="about-text">
+            <h2>About Me</h2>
+            <p>
+                Hi, I am a graduate student at Tufts University specializing in Software Systems Development with a background in computer science and quantitative economics.<br><br> 
+                I enjoy building systems that combine technical rigor with real-world impact, from scalable 
+                web applications to data-driven economic models. My work spans programming, algorithm design, 
+                and systems modeling, with a particular interest in applying computer science to meaningful, 
+                interdisciplinary challenges.
+
+            </p>
+        </div>
+    </div>
+</section>
+<section class="projects" id="projects-section">
+  <h2>Technical Project Highlights</h2>
+
+  <!-- Project Card 3 -->
+  <div class="project-card">
+    <h3>Scaling AI Chatbot for Multi-Platform Use</h3>
+    <p>
+        Redesigned AI chatbot and integrated into MS Teams for scalable use.
+        <span class="read-more" data-modal="modal3">More Info →</span>
+    </p>
+    <div class="skills">
+      <span class="skill">Python</span>
+      <span class="skill">API design</span>
+      <span class="skill">AI</span>
+      <span class="skill">Docker</span>
+      <span class="skill">Algorithm Design & Statistical Analysis</span>
+    </div>
+  </div>
+
+<!-- Modal for Project 3 -->
+<div id="modal3" class="modal">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <h3>Scaling AI Chatbot for Multi-Platform Emergency Response</h3>
+    
+    <h4>Problem Overview</h4>
+    <p>
+      My team and I mapped out goals for expanding a baseline AI chatbot application to support higher-scale, flexible integration into various existing applications. The potential for integration into emergency response applications necessitated transparent and reliable user-facing response accuracy metrics.
+    </p>
+
+    <h4>Result Overview</h4>
+    <p>This effort enabled seamless integration with Microsoft Teams, internal applications, and future platforms, establishing a scalable, fault-tolerant foundation for future chatbot improvements. Front facing response validation further aimed to improve response reliability and user trust for higher-stakes applications. 
+    </p>
+    
+    <h4>Solution Details</h4>
+    <p>
+      As I began my initial task to integrate the bot into Microsoft Teams, I recognized an opportunity for a deeper architectural redesign that could facilitate future integration goals and flexibly support multiple clients across varying applications. This involved isolating chatbot logic from front-end interface by creating a dedicated API layer for multi-platform deployment.
+      <br>
+      Additionally, as trust and reliability in AI responsibility became increasingly relevant for our intended users, this led me to design a new validation algorithm to evaluate accuracy and detect hallucinations based on statistical anomaly detection across AI models.
+    </p>      
+    
+    <h4>Constraints & Tradeoffs</h4>
+    <p>
+      The refactor temporarily paused some AI development plans, but offered substantial efficiency and structural gains for future development and scalability.
+      Thus, this implementation required coordinating with teammates to allow concurrent development to continue during the refactor. 
+    </p>
+  
+
+  </div>
+</div>
+
+
+
+  <!-- Project Card 1 -->
+  <div class="project-card">
+    <h3>End-to-End File Copying Program</h3>
+    <p>
+        Developed a reliable system to copy client files over unreliable UDP sockets.
+        <span class="read-more" data-modal="modal1">More Info →</span>
+    </p>
+    <div class="skills">
+      <span class="skill">C++</span>
+      <span class="skill">Systems Programming</span>
+      <span class="skill">UDP Networking</span>
+      <span class="skill">Algorithm Design</span>
+      <span class="skill">End-to-End</span>
+      <span class="skill">Pair-programming</span>
+    </div>
+  </div>
+
+  
+  <!-- File Copy Project Modal -->
+<div id="modal1" class="modal">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    
+    <!-- Modal Header -->
+    <h2>File Copy: Reliable UDP File Transfer</h2>
+    
+    <!-- Problem Overview -->
+    <h4>Overview</h4>
+    <p>
+    I co-designed a custom protocol to reliably transfer directory files from a client to a server over an unreliable UDP network. 
+
+    Because intermediate correctness guarantees were insufficient under packet loss and reordering, we implemented an end-to-end correctness step to ensure files were only written once fully reconstructed.
+    </p>
+  
+  <!-- Challenges & Design Highlights -->
+  <h4>Design Highlights, Challenges, & Tradeoffs</h4>
+    <ul>
+      <li>
+        Enabled correct file reconstruction by ensuring consistency in protocol for sending and receiving packets 
+      </li>
+      <li>
+        Prevented the server from getting ahead of the client through careful synchronization and communication
+      </li>
+      <li>
+        Balanced efficiency and reliability to handle lost, delayed, or corrupted packets without excessive retransmission overhead
+      </li>
+      <li>
+        Designed a communication pattern to tolerate large files and large directories
+      </li>
+      <li>
+        Tolerated packet loss and delay through a retransmission mechanism
+      </li>
+    </ul>
+
+    <!-- Why it Mattered -->
+    <h4>Takeaways</h4>
+    <p>
+      Our implementation environment simulated network unreliability and file systems, necessitating a fault-tolerant system design. 
+      Reliable file delivery relied on correctness checks at the highest level of our system.
+    </p>
+
+  </div>
+</div>
+
+  
+
+
+  <!-- Project Card 2 -->
+  <div class="project-card">
+    <h3>Remote Procedure Call Framework</h3>
+    <p>
+        Autogenerates client stubs and server proxies for remote execution.
+        <span class="read-more" data-modal="modal2">More Info →</span>
+    </p>
+    <div class="skills">
+      <span class="skill">C++</span>
+      <span class="skill">RPC</span>
+      <span class="skill">TCP Communication</span>
+      <span class="skill">Code Generation</span>
+    </div>
+  </div>
+
+  <!-- Modal for Project 2 -->
+  <div id="modal2" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <h3>Remote Procedure Call Framework</h3>
+      <h4>Overview</h4>
+      <p>
+        I created a C++ system that automatically generates client stubs and server proxies from IDL (interface definition language) files, enabling remote execution of any supported method. This project aimed to remove manual coding overhead, reduce errors, and allow developers to call remote methods as if they were local functions.
+      </p>
+      <h4>Implementation Details</h4>
+      <p>
+        To accomplish this, we built a process to dynamically generate corresponding client and server code upon parsing method contracts from IDL files. 
+        We further created reusable templates for dynamic file and methods generation, allowing the system to support all argument types and method types, including deeply nested structures. A consistent serialization scheme across client proxies and server stubs ensured data structures could be reliably reconstructed, allowing remote calls to behave like local executions.
+      </p>
+      <h4>Takeaways</h4>
+      <p>
+        The resulting program eliminated repetitive manual coding and introduced a standardized communication system for remote procedure calls across distributed systems.  
+      </p>
+    </div>
+  </div>
+
+
+</section>
+
+
+<section class="academic-work" id="academic-section">
+  <h2>Academic Papers</h2>
+
+  <div class="paper-grid">
+    <a href="papers/drm.html" target="_blank" class="paper-card">
+      <div class="paper-icon">🔒</div>
+      <h3>Analysis of Digital Rights Management on the Web</h3>
+      <span>Systems Architecture Analysis</span>
+    </a>
+
+    <a href="papers/circular-waste.pdf" target="_blank" class="paper-card">
+      <div class="paper-icon">♻️</div>
+      <h3>Scaling Circularity in Disposal Systems</h3>
+      <span>Big Data · Systems Modeling</span>
+    </a>
+
+    <a href="papers/metrics-incomeVax.pdf" target="_blank" class="paper-card">
+      <div class="paper-icon">📈</div>
+      <h3>Analyzing the Effect of Income on Vaccination</h3>
+      <span>Empirical Analysis  · Regression  · Stata </span>
+    </a>
+  </div>
+</section>
+
+
+<section class="contact" id="contact-section">
+  <h2>Contact</h2>
+  <p>
+    Always open to learning and sharing new ideas! Let's connect:
+  </p>
+<div class="contact-info">
+    <div class="contact-item">
+      <span class="label">Email</span>
+      <a href="mailto:ymld2021@gmail.com">ymld2021@gmail.com</a>
+    </div>
+
+    <div class="contact-item">
+      <span class="label">LinkedIn</span>
+      <a href="https://linkedin.com/in/ymld975" target="_blank">
+        linkedin.com/in/ymld975
+      </a>
+    </div>
+
+    <div class="contact-item">
+      <span class="label">GitHub</span>
+      <a href="https://github.com/yvonne-lopez-davila" target="_blank">
+        github.com/yvonne-lopez-davila
+      </a>
+    </div>
+
+    <div class="contact-item">
+      <span class="label">Resume</span>
+      <a href="papers/resume.pdf" target="_blank">
+        Download PDF
+      </a>
+    </div>
+  </div>
+</section>
+
+
+
+    </body>
+<script>
+  // Open modal (for buttons, read-more, expand icons)
+  document.querySelectorAll('[data-modal]').forEach(trigger => {
+    trigger.addEventListener('click', () => {
+      const modalId = trigger.dataset.modal;
+      const modal = document.getElementById(modalId);
+      if (modal) modal.style.display = 'block';
+    });
+  });
+
+  // Close modal via ×
+  document.querySelectorAll('.modal .close').forEach(btn => {
+    btn.addEventListener('click', () => {
+      btn.closest('.modal').style.display = 'none';
+    });
+  });
+
+  // Close modal by clicking backdrop
+  window.addEventListener('click', e => {
+    document.querySelectorAll('.modal').forEach(modal => {
+      if (e.target === modal) modal.style.display = 'none';
+    });
+  });
+</script>
+
+
+    </html>
